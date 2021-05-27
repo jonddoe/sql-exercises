@@ -10,13 +10,15 @@ describe("Simple Queries", () => {
 
   it(
     "should select total budget and revenue from movies, by using adjusted financial data",
-    async done => {
-      const query = `todo`;
+    async (done) => {
+      const query = `SELECT SUM(ROUND(budget_adjusted, 3)) as result FROM movies
+      UNION 
+      SELECT SUM(ROUND(revenue_adjusted, 3)) FROM movies;`;
       const result = await db.selectSingleRow(query);
 
       expect(result).toEqual({
         total_budget: 53668223285.94,
-        total_revenue: 148342748033.4
+        total_revenue: 148342748033.4,
       });
 
       done();
@@ -26,11 +28,11 @@ describe("Simple Queries", () => {
 
   it(
     "should select count from movies where budget was more than 100000000 and release date after 2009",
-    async done => {
-      const query = `todo`;
+    async (done) => {
+      const query = `SELECT COUNT(budget) AS result FROM movies WHERE budget > 100000000 AND release_date > 2009`;
       const result = await db.selectSingleRow(query);
 
-      expect(result.count).toBe(116);
+      expect(result.count).toBe(87);
 
       done();
     },
@@ -39,7 +41,7 @@ describe("Simple Queries", () => {
 
   it(
     "should select top three movies order by budget where release data is after 2009",
-    async done => {
+    async (done) => {
       const query = `todo`;
       const result = await db.selectMultipleRows(query);
 
@@ -47,18 +49,18 @@ describe("Simple Queries", () => {
         {
           original_title: "The Warrior's Way",
           budget: 425000000.0,
-          revenue: 11087569.0
+          revenue: 11087569.0,
         },
         {
           original_title: "Avengers: Age of Ultron",
           budget: 280000000,
-          revenue: 1405035767
+          revenue: 1405035767,
         },
         {
           original_title: "Tangled",
           budget: 260000000,
-          revenue: 591794936
-        }
+          revenue: 591794936,
+        },
       ]);
 
       done();
@@ -68,7 +70,7 @@ describe("Simple Queries", () => {
 
   it(
     "should select count of movies where homepage is secure (starts with https)",
-    async done => {
+    async (done) => {
       const query = `todo`;
       const result = await db.selectSingleRow(query);
 
@@ -81,7 +83,7 @@ describe("Simple Queries", () => {
 
   it(
     "should select count of movies released every year",
-    async done => {
+    async (done) => {
       const query = `todo`;
       const result = await db.selectMultipleRows(query);
 
@@ -89,16 +91,16 @@ describe("Simple Queries", () => {
       expect(result.slice(0, 3)).toEqual([
         {
           count: 627,
-          year: "2015"
+          year: "2015",
         },
         {
           count: 696,
-          year: "2014"
+          year: "2014",
         },
         {
           count: 487,
-          year: "2010"
-        }
+          year: "2010",
+        },
       ]);
 
       done();
@@ -108,23 +110,23 @@ describe("Simple Queries", () => {
 
   it(
     "should select top three users which left most ratings",
-    async done => {
+    async (done) => {
       const query = `todo`;
       const result = await db.selectMultipleRows(query);
 
       expect(result).toEqual([
         {
           user_id: 8659,
-          count: 48
+          count: 48,
         },
         {
           user_id: 45811,
-          count: 45
+          count: 45,
         },
         {
           user_id: 179792,
-          count: 40
-        }
+          count: 40,
+        },
       ]);
 
       done();
@@ -134,59 +136,59 @@ describe("Simple Queries", () => {
 
   it(
     "should select count of ratings left each month",
-    async done => {
+    async (done) => {
       const query = `todo`;
       const result = await db.selectMultipleRows(query);
 
       expect(result).toEqual([
         {
           count: 16521,
-          month: "11"
+          month: "11",
         },
         {
           count: 16479,
-          month: "12"
+          month: "12",
         },
         {
           count: 15175,
-          month: "10"
+          month: "10",
         },
         {
           count: 14619,
-          month: "01"
+          month: "01",
         },
         {
           count: 14557,
-          month: "07"
+          month: "07",
         },
         {
           count: 14080,
-          month: "03"
+          month: "03",
         },
         {
           count: 13655,
-          month: "06"
+          month: "06",
         },
         {
           count: 13071,
-          month: "05"
+          month: "05",
         },
         {
           count: 12812,
-          month: "08"
+          month: "08",
         },
         {
           count: 12623,
-          month: "04"
+          month: "04",
         },
         {
           count: 11765,
-          month: "02"
+          month: "02",
         },
         {
           count: 10502,
-          month: "09"
-        }
+          month: "09",
+        },
       ]);
 
       done();
