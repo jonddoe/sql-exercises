@@ -8,7 +8,7 @@ import {
   selectDirector,
   selectGenre,
   selectProductionCompany,
-  selectMovie
+  selectMovie,
 } from "../src/queries/select";
 import {
   ACTORS,
@@ -16,7 +16,7 @@ import {
   DIRECTORS,
   GENRES,
   PRODUCTION_COMPANIES,
-  MOVIES
+  MOVIES,
 } from "../src/table-names";
 import { Movie } from "../src/data/types";
 import { escape } from "../src/utils";
@@ -25,28 +25,60 @@ import { minutes } from "./utils";
 const insertActors = (actors: string[]) => {
   return (
     `insert into actors (full_name) values` +
-    actors.map(actor => `('${escape(actor)}')`).join(",")
+    actors.map((actor) => `('${escape(actor)}')`).join(",")
   );
 };
 
 const insertKeywords = (keywords: string[]) => {
-  throw new Error(`todo`);
+  return (
+    `insert into keywords (keyword) values` +
+    keywords.map((keyword) => `('${escape(keyword)}')`).join(",")
+  );
 };
 
 const insertDirectors = (directors: string[]) => {
-  throw new Error(`todo`);
+  return (
+    `insert into directors (full_name) values` +
+    directors.map((full_name) => `('${escape(full_name)}')`).join(",")
+  );
 };
 
 const insertGenres = (genres: string[]) => {
-  throw new Error(`todo`);
+  return (
+    `insert into genres (genre) values` +
+    genres.map((genre) => `('${escape(genre)}')`).join(",")
+  );
 };
 
 const insertProductionCompanies = (companies: string[]) => {
-  throw new Error(`todo`);
+  return (
+    `insert into production_companies (company_name) values` +
+    companies.map((company_name) => `('${escape(company_name)}')`).join(",")
+  );
 };
 
 const insertMovies = (movies: Movie[]) => {
-  throw new Error(`todo`);
+  return (
+    `insert into movies (imdb_id, popularity, budget, budget_adjusted, revenue, revenue_adjusted, original_title, homepage, tagline, overview, runtime, release_date) values` +
+    movies
+      .map(
+        (movie) =>
+          `('${escape(movie.imdbId)}','${escape(
+            movie.popularity.toString()
+          )}','${escape(movie.budget.toString())}','${escape(
+            movie.budgetAdjusted.toString()
+          )}','${escape(movie.revenue.toString())}','${escape(
+            movie.revenueAdjusted.toString()
+          )}','${escape(movie.originalTitle)}','${escape(
+            movie.homepage
+          )}','${escape(movie.tagline ? movie.tagline : "null")}','${escape(
+            movie.overview
+          )}','${escape(movie.runtime.toString())}','${escape(
+            movie.releaseDate.toString()
+          )}')`
+      )
+      .join(",")
+  );
 };
 
 describe("Insert Flat Data", () => {
@@ -59,7 +91,7 @@ describe("Insert Flat Data", () => {
 
   it(
     "should insert actors",
-    async done => {
+    async (done) => {
       const actors = await CsvLoader.actors();
       const chunks = _.chunk(actors, 500);
 
@@ -81,7 +113,7 @@ describe("Insert Flat Data", () => {
 
   it(
     "should insert keywords",
-    async done => {
+    async (done) => {
       const keywords = await CsvLoader.keywords();
       const chunks = _.chunk(keywords, 500);
 
@@ -103,7 +135,7 @@ describe("Insert Flat Data", () => {
 
   it(
     "should insert directors",
-    async done => {
+    async (done) => {
       const directors = await CsvLoader.directors();
       const chunks = _.chunk(directors, 500);
 
@@ -125,7 +157,7 @@ describe("Insert Flat Data", () => {
 
   it(
     "should insert genres",
-    async done => {
+    async (done) => {
       const genres = await CsvLoader.genres();
 
       await db.insert(insertGenres(genres));
@@ -144,7 +176,7 @@ describe("Insert Flat Data", () => {
 
   it(
     "should insert production companies",
-    async done => {
+    async (done) => {
       const productionCompanies = await CsvLoader.productionCompanies();
       const chunks = _.chunk(productionCompanies, 500);
 
@@ -168,7 +200,7 @@ describe("Insert Flat Data", () => {
 
   it(
     "should insert movies",
-    async done => {
+    async (done) => {
       const movies = await CsvLoader.movies();
       const chunks = _.chunk(movies, 500);
 

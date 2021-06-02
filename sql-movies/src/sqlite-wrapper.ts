@@ -39,7 +39,7 @@ export class SQLiteWrapper {
 
   async execute(query: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.db.exec(query, err => {
+      this.db.exec(query, (err) => {
         if (err) return reject(`Execution failed: ${err} for query "${query}"`);
         resolve();
       });
@@ -48,7 +48,7 @@ export class SQLiteWrapper {
 
   async reset(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      fs.unlink(this.pathToFile, err => {
+      fs.unlink(this.pathToFile, (err) => {
         if (err) return reject(err);
         resolve();
       });
@@ -56,12 +56,12 @@ export class SQLiteWrapper {
   }
 
   static async createNew(prefix: string): Promise<SQLiteWrapper> {
-    const exists = await new Promise(resolve =>
-      fs.exists(DB_DIR, exists => resolve(exists))
+    const exists = await new Promise((resolve) =>
+      fs.exists(DB_DIR, (exists) => resolve(exists))
     );
     if (!exists) {
       await new Promise((resolve, reject) => {
-        fs.mkdir(DB_DIR, err => {
+        fs.mkdir(DB_DIR, (err) => {
           if (err) return reject(err);
           resolve();
         });
@@ -77,7 +77,7 @@ export class SQLiteWrapper {
     const sourcePath = path(sourcePrefix);
     const targetPath = path(targetPrefix);
     await new Promise((resolve, reject) => {
-      fs.copyFile(sourcePath, targetPath, err => {
+      fs.copyFile(sourcePath, targetPath, (err) => {
         if (err) return reject(err);
         resolve();
       });
