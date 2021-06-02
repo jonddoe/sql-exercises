@@ -109,7 +109,7 @@ describe("Simple Queries", () => {
   it(
     "should select top three users which left most ratings",
     async (done) => {
-      const query = `SELECT user_id, COUNT(user_id) AS count FROM movie_ratings GROUP BY user_id ORDER BY COUNT(user_id) desc LIMIT 3`;
+      const query = `SELECT user_id, COUNT(user_id) AS count FROM movie_ratings GROUP BY user_id ORDER BY count DESC LIMIT 3`;
       const result = await db.selectMultipleRows(query);
 
       expect(result).toEqual([

@@ -23,7 +23,7 @@ export const selectMovieById = (id: number): string => {
 };
 
 export const selectGenreById = (id: number): string => {
-  return `select * from genre where id = "${id}"`;
+  return `select * from genres where id = "${id}"`;
 };
 
 export const selectDirectorById = (id: number): string => {
@@ -35,7 +35,7 @@ export const selectActorById = (id: number): string => {
 };
 
 export const selectKeywordById = (id: number): string => {
-  return `select * from movies where imdb_id = "${id}"`;
+  return `select * from keywords where id = "${id}"`;
 };
 
 export const selectProductionCompanyById = (id: number): string => {

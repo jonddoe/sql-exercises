@@ -34,7 +34,7 @@ const insertMovieGenres = (
 ): string => {
   const result = genreRows.filter((genre) => genres.includes(genre.genre));
   return (
-    `insert into movie_genres (movie_id, genre_id) values` +
+    `INSERT INTO movie_genres (movie_id, genre_id) VALUES` +
     result.map((genre) => `('${movieId}','${genre.id}')`).join(",")
   );
 };
@@ -46,7 +46,7 @@ const insertMovieActors = (
 ): string => {
   let result = actorRows.filter((actor) => actors.includes(actor.full_name));
   return (
-    `insert into movie_actors (movie_id, actor_id) values` +
+    `INSERT INTO movie_actors (movie_id, actor_id) VALUES` +
     result.map((actor) => `('${movieId}','${actor.id}')`).join(",")
   );
 };
@@ -60,7 +60,7 @@ const insertMovieDirectors = (
     directors.includes(director.full_name)
   );
   return (
-    `insert into movie_directors (movie_id, director_id) values` +
+    `INSERT INTO movie_directors (movie_id, director_id) VALUES` +
     result.map((director) => `('${movieId}','${director.id}')`).join(",")
   );
 };
@@ -74,7 +74,7 @@ const insertMovieKeywords = (
     keywords.includes(keyword.keyword)
   );
   return (
-    `insert into movie_keywords (movie_id, keyword_id) values` +
+    `INSERT INTO movie_keywords (movie_id, keyword_id) VALUES` +
     result.map((keyword) => `('${movieId}','${keyword.id}')`).join(",")
   );
 };
@@ -88,7 +88,7 @@ const insertMovieProductionCompanies = (
     productionCompanies.includes(productionCompany.company_name)
   );
   return (
-    `insert into movie_production_companies (movie_id, company_id) values` +
+    `INSERT INTO movie_production_companies (movie_id, company_id) VALUES` +
     result
       .map((productionCompany) => `('${movieId}','${productionCompany.id}')`)
       .join(",")

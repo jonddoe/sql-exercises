@@ -107,9 +107,9 @@ describe("Queries Across Tables", () => {
       const query = `SELECT COUNT(movie_actors.actor_id) as count, original_title 
       FROM movie_actors, movies 
       WHERE movie_actors.movie_id = movies.id
-      GROUP BY movie_id 
-      ORDER BY count desc`;
-      //for some reason Life has 5 actors, no movie has more than 5 actors
+      GROUP BY original_title 
+      ORDER BY count DESC
+	    LIMIT 1`;
       const result = await db.selectSingleRow(query);
 
       expect(result).toEqual({
